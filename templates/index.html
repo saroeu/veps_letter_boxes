@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Letter Boxed</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Дополнительные стили для анимаций */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-5px); }
+            40%, 80% { transform: translateX(5px); }
+        }
+        .error-shake {
+            animation: shake 0.5s;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <!-- Данные доски (для JS) -->
+        <script id="board-data" type="application/json">{{ board | tojson | safe }}</script>
+
+        <!-- Шапка игры -->
+        <header class="game-header">
+            <h1>LETTER BOXED</h1>
+            <div class="game-stats">
+                <span id="word-count">0</span> words ·
+                <span id="letters-count">0</span>/12 letters
+            </div>
+        </header>
+
+        <!-- Игровая доска -->
+        <div class="board">
+            {% for side in board %}
+            <div class="side side-{{ loop.index }}">
+                {% for letter in side %}
+                <div class="letter" data-letter="{{ letter }}">
+                    {{ letter }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Текущее слово -->
+        <div class="current-word-container">
+            <div id="current-word" class="current-word"></div>
+            <div id="message-box" class="message-box"></div>
+        </div>
+
+        <!-- Панель управления -->
+        <div class="controls">
+            <button id="submit-word" class="btn btn-primary">
+                ENTER
+            </button>
+            <button id="delete-btn" class="btn btn-secondary">
+                DELETE
+            </button>
+            <button id="shuffle-btn" class="btn btn-secondary">
+                SHUFFLE
+            </button>
+        </div>
+
+        <!-- Статистика -->
+        <div class="game-info">
+            <div class="used-words">
+                <strong>Used words:</strong>
+                <span id="used-words"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Подключение скриптов -->
+    <script src="/static/script.js"></script>
+
+    <!-- Инициализация игры -->
+    <script>
+        console.log("Инициализация игры...");
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log("DOM полностью загружен");
+
+            // Проверка загрузки данных
+            if (!document.getElementById('board-data')) {
+                console.error("Ошибка: данные доски не загружены!");
+                alert("Ошибка загрузки игры. Пожалуйста, перезагрузите страницу.");
+            }
+        });
+    </script>
+</body>
+</html>
