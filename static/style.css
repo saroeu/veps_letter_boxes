@@ -1,0 +1,308 @@
+/* Основные стили */
+:root {
+  --primary-color: #4a6fa5;
+  --secondary-color: #166088;
+  --error-color: #d64045;
+  --success-color: #4cb944;
+  --warning-color: #ff9f1c;
+  --text-color: #333333;
+  --bg-color: #f8f9fa;
+  --tile-bg: #ffffff;
+  --tile-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+body {
+  font-family: 'Libre Franklin', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+/* Контейнер игры */
+.game-container {
+  width: 100%;
+  max-width: 420px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+  text-align: center;
+}
+
+/* Шапка игры */
+.game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.game-header h1 {
+  font-size: 24px;
+  margin: 0;
+  color: var(--primary-color);
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.game-stats {
+  font-size: 14px;
+  color: #666;
+}
+
+/* Игровая доска */
+.board {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  margin: 0 auto 20px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  background-color: #f5f5f5;
+}
+
+/* Стили для сторон доски */
+.side {
+  position: absolute;
+  display: flex;
+}
+
+.side-1 {
+  /* Верхняя сторона */
+  top: -20px;
+  left: 0;
+  right: 0;
+  justify-content: space-around;
+}
+
+.side-2 {
+  /* Правая сторона */
+  top: 0;
+  bottom: 0;
+  right: -20px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.side-3 {
+  /* Нижняя сторона */
+  bottom: -20px;
+  left: 0;
+  right: 0;
+  justify-content: space-around;
+}
+
+.side-4 {
+  /* Левая сторона */
+  top: 0;
+  bottom: 0;
+  left: -20px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+/* Стили для букв */
+.letter {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 700;
+  background: var(--tile-bg);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: var(--tile-shadow);
+  transition: all 0.2s ease;
+  user-select: none;
+  margin: 5px;
+}
+
+/* Стиль для активной буквы */
+.letter.selected {
+    background: #4a6fa5;
+    color: white;
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Стиль при наведении */
+.letter:hover {
+    background: #f0f0f0;
+    transform: scale(1.05);
+}
+
+/* Анимация выделения */
+@keyframes selectLetter {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+    100% { transform: scale(1.1); }
+}
+
+.letter.selected {
+    animation: selectLetter 0.2s ease-out forwards;
+}
+
+/* Контейнер текущего слова */
+.current-word-container {
+  margin: 20px 0;
+  min-height: 60px;
+}
+
+.current-word {
+  font-size: 32px;
+  font-weight: 700;
+  height: 40px;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+/* Сообщения */
+.message-box {
+  min-height: 20px;
+  font-weight: 600;
+  margin: 10px 0;
+  transition: all 0.3s ease;
+}
+
+.message-box.error {
+  color: var(--error-color);
+}
+
+.message-box.success {
+  color: var(--success-color);
+}
+
+.message-box.warning {
+  color: var(--warning-color);
+}
+
+/* Панель управления */
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.btn-primary {
+  background: var(--primary-color);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: var(--secondary-color);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background: #e9ecef;
+  color: var(--text-color);
+}
+
+.btn-secondary:hover {
+  background: #dee2e6;
+  transform: translateY(-2px);
+}
+
+.btn:active {
+  transform: translateY(0) !important;
+}
+
+/* Статистика */
+.game-info {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+.used-words {
+  font-size: 14px;
+  color: #666;
+  max-height: 100px;
+  overflow-y: auto;
+  padding: 5px;
+}
+
+/* Анимации */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-5px); }
+  40%, 80% { transform: translateX(5px); }
+}
+
+.error-shake {
+  animation: shake 0.5s;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.message-animation {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Адаптивность */
+@media (max-width: 480px) {
+  .game-container {
+    padding: 15px;
+    border-radius: 8px;
+  }
+
+  .board {
+    width: 280px;
+    height: 280px;
+  }
+
+  .letter {
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
+  }
+
+  .current-word {
+    font-size: 28px;
+  }
+
+  .controls {
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    padding: 8px 15px;
+    font-size: 13px;
+    flex: 1;
+    min-width: 80px;
+  }
+}
+
+/* Специальные стили для символов */
+.letter.special-char {
+  font-size: 22px; /* Чуть меньше размер для специальных символов */
+  padding-top: 2px; /* Выравнивание по вертикали */
+}
